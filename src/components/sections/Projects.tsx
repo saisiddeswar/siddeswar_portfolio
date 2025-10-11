@@ -1,5 +1,5 @@
 import { ExternalLink, Github, Sparkles, Users, Target, Activity, Heart, Shield, Zap, ArrowUpRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const projects = [
   {
@@ -44,6 +44,8 @@ export const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Detect mobile devices
   useEffect(() => {
@@ -54,6 +56,42 @@ export const Projects = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Intersection Observer for scroll-based animations on mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = cardRefs.current.indexOf(entry.target as HTMLDivElement);
+          if (entry.isIntersecting && index !== -1) {
+            setVisibleCards((prev) => new Set(prev).add(index));
+          } else if (index !== -1) {
+            setVisibleCards((prev) => {
+              const newSet = new Set(prev);
+              newSet.delete(index);
+              return newSet;
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of card is visible
+        rootMargin: '-50px',
+      }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [isMobile]);
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
@@ -93,18 +131,24 @@ export const Projects = () => {
               const ProjectIcon = project.icon;
               const isHovered = hoveredIndex === index;
               const isActive = activeProject === index;
+              const isVisible = visibleCards.has(index);
 
               return (
                 <div
                   key={project.title}
+                  ref={(el) => (cardRefs.current[index] = el)}
                   className="group relative animate-fade-up"
                   style={{ animationDelay: `${index * 0.15}s` }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  onMouseEnter={() => !isMobile && setHoveredIndex(index)}
+                  onMouseLeave={() => !isMobile && setHoveredIndex(null)}
                   onClick={() => setActiveProject(activeProject === index ? null : index)}
                 >
-                  {/* Enhanced Glow Effect - Disabled on mobile */}
-                  <div className={`hidden md:block absolute -inset-4 bg-gradient-to-r ${project.color} rounded-3xl blur-2xl opacity-0 group-hover:opacity-40 transition-all duration-700`} />
+                  {/* Enhanced Glow Effect - Desktop hover + Mobile scroll */}
+                  <div className={`absolute -inset-4 bg-gradient-to-r ${project.color} rounded-3xl blur-2xl transition-all duration-700 ${
+                    isMobile 
+                      ? (isVisible ? 'opacity-30' : 'opacity-0')
+                      : 'opacity-0 md:group-hover:opacity-40'
+                  }`} />
                   
                   {/* Floating Elements - Disabled on mobile */}
                   <div className="hidden md:block absolute inset-0 rounded-3xl overflow-hidden">
