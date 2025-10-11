@@ -33,7 +33,7 @@ export const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Hi, I'm <span className="gradient-text">Bandaru Sai Siddeswar</span> 👋
+            Hi, I'm <span className="gradient-text whitespace-nowrap">Bandaru Sai Siddeswar</span> 👋
           </h1>
 
           <p className="text-xl md:text-2xl text-muted-foreground mb-4 font-medium">
