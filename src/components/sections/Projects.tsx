@@ -1,5 +1,5 @@
 import { ExternalLink, Github, Sparkles, Users, Target, Activity, Heart, Shield, Zap, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const projects = [
   {
@@ -43,6 +43,17 @@ const projects = [
 export const Projects = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile devices
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
@@ -92,11 +103,11 @@ export const Projects = () => {
                   onMouseLeave={() => setHoveredIndex(null)}
                   onClick={() => setActiveProject(activeProject === index ? null : index)}
                 >
-                  {/* Enhanced Glow Effect */}
-                  <div className={`absolute -inset-4 bg-gradient-to-r ${project.color} rounded-3xl blur-2xl opacity-0 group-hover:opacity-40 transition-all duration-700`} />
+                  {/* Enhanced Glow Effect - Disabled on mobile */}
+                  <div className={`hidden md:block absolute -inset-4 bg-gradient-to-r ${project.color} rounded-3xl blur-2xl opacity-0 group-hover:opacity-40 transition-all duration-700`} />
                   
-                  {/* Floating Elements */}
-                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                  {/* Floating Elements - Disabled on mobile */}
+                  <div className="hidden md:block absolute inset-0 rounded-3xl overflow-hidden">
                     {[...Array(5)].map((_, i) => (
                       <div
                         key={i}
@@ -111,35 +122,35 @@ export const Projects = () => {
                   </div>
 
                   {/* Main Card */}
-                  <div className={`relative h-full bg-card/80 backdrop-blur-sm border border-border/50 rounded-3xl overflow-hidden transition-all duration-500 group-hover:border-primary/30 group-hover:-translate-y-3 group-hover:shadow-2xl ${
+                  <div className={`relative h-full bg-card/80 backdrop-blur-sm border border-border/50 rounded-3xl overflow-hidden transition-all duration-300 md:duration-500 md:group-hover:border-primary/30 md:group-hover:-translate-y-3 md:group-hover:shadow-2xl ${
                     isActive ? 'ring-2 ring-primary/50' : ''
                   }`}>
                     
                     {/* Header Section */}
-                    <div className={`p-8 ${project.gradient} border-b border-border/30 transition-all duration-500`}>
-                      <div className="flex items-start justify-between mb-6">
-                        <div className="flex items-center gap-4">
-                          <div className={`p-3 rounded-2xl bg-gradient-to-br ${project.color.replace('/20', '')} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                            <ProjectIcon className="h-6 w-6 text-white" />
+                    <div className={`p-4 sm:p-6 md:p-8 ${project.gradient} border-b border-border/30 transition-all duration-500`}>
+                      <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4 sm:mb-6">
+                        <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                          <div className={`p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br ${project.color.replace('/20', '')} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg flex-shrink-0`}>
+                            <ProjectIcon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                           </div>
-                          <div>
-                            <h3 className="text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:text-primary transition-colors duration-300">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent group-hover:text-primary transition-colors duration-300 truncate">
                               {project.title}
                             </h3>
                             <div className="flex items-center gap-2 mt-1">
                               <div className="w-1 h-1 bg-current rounded-full opacity-50" />
-                              <span className="text-sm text-muted-foreground font-medium">{project.stats}</span>
+                              <span className="text-xs sm:text-sm text-muted-foreground font-medium">{project.stats}</span>
                             </div>
                           </div>
                         </div>
                         
                         {/* Action Buttons */}
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-shrink-0">
                           <a
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 hover:scale-110 hover:rotate-12 hover:shadow-lg hover:shadow-primary/50 cursor-pointer"
+                            className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 md:hover:scale-110 md:hover:rotate-12 hover:shadow-lg hover:shadow-primary/50 cursor-pointer"
                             aria-label="View GitHub Repository"
                           >
                             <Github className="h-4 w-4" />
@@ -148,7 +159,7 @@ export const Projects = () => {
                             href={project.demo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-3 rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 hover:scale-110 hover:-rotate-12 hover:shadow-lg hover:shadow-accent/50 cursor-pointer"
+                            className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all duration-300 md:hover:scale-110 md:hover:-rotate-12 hover:shadow-lg hover:shadow-accent/50 cursor-pointer"
                             aria-label="View Live Demo"
                           >
                             <ArrowUpRight className="h-4 w-4" />
@@ -157,29 +168,29 @@ export const Projects = () => {
                       </div>
 
                       {/* Impact Badge */}
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-background/80 backdrop-blur-sm border border-border/30 group-hover:border-primary/50 transition-all duration-300">
-                        <Target className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-semibold text-primary">{project.impact}</span>
+                      <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl bg-background/80 backdrop-blur-sm border border-border/30 group-hover:border-primary/50 transition-all duration-300">
+                        <Target className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+                        <span className="text-xs sm:text-sm font-semibold text-primary">{project.impact}</span>
                       </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="p-8">
-                      <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
+                    <div className="p-4 sm:p-6 md:p-8">
+                      <p className="text-muted-foreground mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base md:text-lg">
                         {project.description}
                       </p>
 
                       {/* Tech Stack with Enhanced Animation */}
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                          <span className="text-sm font-semibold text-foreground">Tech Stack</span>
+                          <span className="text-xs sm:text-sm font-semibold text-foreground">Tech Stack</span>
                         </div>
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-2 sm:gap-3">
                           {project.tech.map((tech, techIndex) => (
                             <span
                               key={tech}
-                              className="px-4 py-2 text-sm font-medium rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 text-foreground transition-all duration-500 hover:border-primary hover:bg-primary/10 hover:scale-105 hover:shadow-lg"
+                              className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg sm:rounded-xl bg-background/80 backdrop-blur-sm border border-border/50 text-foreground transition-all duration-500 hover:border-primary hover:bg-primary/10 md:hover:scale-105 hover:shadow-lg"
                               style={{
                                 transitionDelay: isHovered ? `${techIndex * 80}ms` : '0ms',
                                 transform: isHovered ? 'translateY(-3px)' : 'translateY(0)',
@@ -193,7 +204,7 @@ export const Projects = () => {
                     </div>
 
                     {/* Animated Footer */}
-                    <div className="px-8 pb-6">
+                    <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6">
                       <div className={`h-1 bg-gradient-to-r ${project.color.replace('/20', '')} rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left shadow-lg`} />
                     </div>
 
