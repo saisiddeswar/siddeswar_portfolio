@@ -1,4 +1,4 @@
-import { Code2, Database, Wrench, Sparkles, Zap, Layers } from "lucide-react";
+import { Code2, Database, Wrench, Sparkles, Zap, Layers, FileCode2, Cloud, Braces, Boxes, Workflow, GitBranch, Globe, Cpu, BrainCircuit, Package } from "lucide-react";
 import { useState } from "react";
 
 const skillCategories = [
@@ -7,35 +7,68 @@ const skillCategories = [
     icon: Code2,
     color: "from-purple-500 to-pink-500",
     bgGlow: "group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)]",
-    skills: ["React", "Next.js", "Vite.js", "TailwindCSS", "TypeScript", "JavaScript"],
+    skills: [
+      { name: "React", icon: Braces },
+      { name: "Next.js", icon: FileCode2 },
+      { name: "Vite.js", icon: Zap },
+      { name: "TailwindCSS", icon: Sparkles },
+      { name: "TypeScript", icon: FileCode2 },
+      { name: "JavaScript", icon: Code2 }
+    ],
   },
   {
     title: "Backend",
     icon: Database,
     color: "from-blue-500 to-cyan-500",
     bgGlow: "group-hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]",
-    skills: ["Node.js", "Express", "Bun", "TypeScript", "RESTful APIs", "GraphQL"],
+    skills: [
+      { name: "Node.js", icon: Boxes },
+      { name: "Express", icon: Workflow },
+      { name: "Bun", icon: Package },
+      { name: "TypeScript", icon: FileCode2 },
+      { name: "RESTful APIs", icon: Globe },
+      { name: "GraphQL", icon: Workflow }
+    ],
   },
   {
     title: "Database",
     icon: Layers,
     color: "from-green-500 to-emerald-500",
     bgGlow: "group-hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]",
-    skills: ["MongoDB", "PostgreSQL", "Firebase", "MySQL", "Redis"],
+    skills: [
+      { name: "MongoDB", icon: Database },
+      { name: "PostgreSQL", icon: Database },
+      { name: "Firebase", icon: Cloud },
+      { name: "MySQL", icon: Database },
+      { name: "Redis", icon: Layers }
+    ],
   },
   {
     title: "Tools & DevOps",
     icon: Wrench,
     color: "from-orange-500 to-red-500",
     bgGlow: "group-hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]",
-    skills: ["Git", "GitHub", "Docker", "Vercel", "GitHub Actions", "Postman"],
+    skills: [
+      { name: "Git", icon: GitBranch },
+      { name: "GitHub", icon: GitBranch },
+      { name: "Docker", icon: Package },
+      { name: "Vercel", icon: Cloud },
+      { name: "GitHub Actions", icon: Workflow },
+      { name: "Postman", icon: Globe }
+    ],
   },
   {
     title: "AI & ML",
     icon: Sparkles,
     color: "from-violet-500 to-purple-500",
     bgGlow: "group-hover:shadow-[0_0_30px_rgba(139,92,246,0.4)]",
-    skills: ["Machine Learning", "Python", "TensorFlow", "CNNs", "AI Integration"],
+    skills: [
+      { name: "Machine Learning", icon: BrainCircuit },
+      { name: "Python", icon: Code2 },
+      { name: "TensorFlow", icon: Cpu },
+      { name: "CNNs", icon: BrainCircuit },
+      { name: "AI Integration", icon: Sparkles }
+    ],
   },
 ];
 
@@ -81,20 +114,25 @@ export const Skills = () => {
                   </div>
 
                   <div className="space-y-3">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div
-                        key={skill}
-                        className="flex items-center gap-3 group/skill"
-                        style={{
-                          transitionDelay: activeCategory === index ? `${skillIndex * 50}ms` : '0ms',
-                        }}
-                      >
-                        <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${category.color} transition-all duration-300 group-hover/skill:w-3`} />
-                        <span className="text-sm font-medium text-muted-foreground group-hover/skill:text-foreground transition-colors duration-300">
-                          {skill}
-                        </span>
-                      </div>
-                    ))}
+                    {category.skills.map((skill, skillIndex) => {
+                      const SkillIcon = skill.icon;
+                      return (
+                        <div
+                          key={skill.name}
+                          className="flex items-center gap-3 group/skill"
+                          style={{
+                            transitionDelay: activeCategory === index ? `${skillIndex * 50}ms` : '0ms',
+                          }}
+                        >
+                          <div className={`p-2 rounded-lg bg-gradient-to-r ${category.color} transition-all duration-300 group-hover/skill:scale-110`}>
+                            <SkillIcon className="h-4 w-4 text-white" />
+                          </div>
+                          <span className="text-sm font-medium text-muted-foreground group-hover/skill:text-foreground transition-colors duration-300">
+                            {skill.name}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   <div className={`mt-6 h-1 bg-gradient-to-r ${category.color} rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left`} />
