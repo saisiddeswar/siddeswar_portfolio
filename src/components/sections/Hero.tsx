@@ -64,7 +64,7 @@ export const Hero = () => {
             <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1">
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-background bg-card">
                 <img
-                  src="/src/assets/profile.jpg"
+                  src="/profile.jpg"
                   alt="Bandaru Sai Siddeswar"
                   className="w-full h-full object-cover rounded-full"
                 />
