@@ -13,7 +13,7 @@ const navItems = [
 ];
 
 export const Navbar = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
@@ -66,9 +66,9 @@ export const Navbar = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-xl font-bold gradient-text"
+            className="text-xl font-bold gradient-text hover:scale-105 transition-transform"
           >
-            Siddeswar
+            Sai Siddeswar
           </a>
 
           {/* Desktop Navigation */}

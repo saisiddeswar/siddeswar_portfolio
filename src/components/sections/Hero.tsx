@@ -1,4 +1,4 @@
-import { ArrowRight, Download, Sparkles, Code2, Rocket } from "lucide-react";
+import { ArrowRight, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -54,25 +54,20 @@ export const Hero = () => {
           <div className="mb-8 flex justify-center animate-fade-in">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Available for opportunities</span>
+              <span className="text-sm font-medium text-primary">Open to opportunities</span>
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             </div>
           </div>
 
-          {/* Avatar with tech icons */}
+          {/* Avatar */}
           <div className="mb-8 flex justify-center animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <div className="relative">
-              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1">
-                <div className="w-full h-full rounded-full bg-card flex items-center justify-center text-5xl font-bold gradient-text border-4 border-background">
-                  SS
-                </div>
-              </div>
-              {/* Orbiting icons */}
-              <div className="absolute top-0 left-0 w-full h-full animate-spin" style={{ animationDuration: "20s" }}>
-                <Code2 className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-8 text-primary bg-background rounded-full p-1.5 border-2 border-primary/30" />
-              </div>
-              <div className="absolute top-0 left-0 w-full h-full animate-spin" style={{ animationDuration: "15s", animationDirection: "reverse" }}>
-                <Rocket className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-8 w-8 text-accent bg-background rounded-full p-1.5 border-2 border-accent/30" />
+            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1">
+              <div className="w-full h-full rounded-full overflow-hidden border-4 border-background bg-card">
+                <img
+                  src="/src/assets/profile.jpg"
+                  alt="Bandaru Sai Siddeswar"
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
             </div>
           </div>
@@ -144,15 +139,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-xs text-muted-foreground">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-primary rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-primary rounded-full animate-pulse" />
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
   );
 };

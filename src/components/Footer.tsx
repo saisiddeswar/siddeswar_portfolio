@@ -28,7 +28,7 @@ export const Footer = () => {
           </div>
           
           <p className="text-center text-muted-foreground flex items-center gap-2">
-            © 2025 Bandaru Sai Siddeswar. Built with <Heart className="h-4 w-4 text-destructive fill-destructive" /> using Lovable.
+            © 2025 Bandaru Sai Siddeswar. Built with <Heart className="h-4 w-4 text-destructive fill-destructive" /> and passion.
           </p>
         </div>
       </div>
