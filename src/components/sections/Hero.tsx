@@ -1,6 +1,7 @@
 import { ArrowRight, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import profileImage from "@/assets/profile.jpg";
 
 export const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -64,7 +65,7 @@ export const Hero = () => {
             <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1">
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-background bg-card">
                 <img
-                  src="/profile.jpg"
+                  src={profileImage}
                   alt="Bandaru Sai Siddeswar"
                   className="w-full h-full object-cover rounded-full"
                 />
