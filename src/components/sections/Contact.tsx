@@ -6,10 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const socialLinks = [
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Mail, href: "mailto:siddeswar@example.com", label: "Email" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/saisiddeswar/", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/saisiddeswar", label: "GitHub" },
+  { icon: Mail, href: "mailto:siddeswar0605@gmail.com", label: "Email" },
 ];
 
 export const Contact = () => {

@@ -1,7 +1,7 @@
-import { ArrowRight, Download, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import profileImage from "@/assets/profile.jpg";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Download, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -114,7 +114,7 @@ export const Hero = () => {
                 asChild
                 className="text-base"
               >
-                <a href="/Siddeswar_SDE_resume.pdf" download>
+                <a href="https://drive.google.com/uc?export=download&id=1OqzxEtheywDjsJbLR5iUDF-h5O7Pc2Mw" download="Siddeswar_Resume.pdf">
                   <Download className="mr-2 h-5 w-5" />
                   Download Resume
                 </a>
