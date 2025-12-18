@@ -114,7 +114,7 @@ export const Hero = () => {
                 asChild
                 className="text-base"
               >
-                <a href="https://drive.google.com/uc?export=download&id=1OqzxEtheywDjsJbLR5iUDF-h5O7Pc2Mw" download="Siddeswar_Resume.pdf">
+                <a href="https://drive.google.com/file/d/11aoWTuIBpVLZMhmlX_4NuYloVhnwqjqr/view?usp=sharing" download="Siddeswar_Resume.pdf">
                   <Download className="mr-2 h-5 w-5" />
                   Download Resume
                 </a>
